@@ -5,12 +5,17 @@
   "description": "a google chrome extension for libnotify2.",
   "background": {
     "persistent": true,
-    "scripts": ["popup.js"]
+    "scripts": ["jquery.min.js", "chat.js" ]
+    
   },
   "permissions": [
     "background",
     "notifications",
     "http://localhost/"
-  ]
-  
+  ],
+  "content_scripts": [ {
+    "js": [ "jquery.min.js"],
+    "css": ["chat.css"],
+    "matches": [ "http://*/*", "https://*/*"]
+  }]
 }
