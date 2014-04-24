@@ -1,0 +1,16 @@
+{
+  "name": "libnotify2",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "a google chrome extension for libnotify2.",
+  "background": {
+    "persistent": true,
+    "scripts": ["popup.js"]
+  },
+  "permissions": [
+    "background",
+    "notifications",
+    "http://localhost/"
+  ]
+  
+}
