@@ -124,7 +124,7 @@ var updater = {
         console.log(messages.length, "new messages, cursor:", updater.cursor);
         for (var i = 0; i < messages.length; i++) {
             updater.showMessage(messages[i]);
-        }
+        }   
     },
 
     showMessage: function(message) {

@@ -80,11 +80,12 @@ class MainHandler(BaseHandler):
 
 
 class MessageNewHandler(BaseHandler):
-    @tornado.web.authenticated
+    
     def post(self):
+        
         message = {
             "id": str(uuid.uuid4()),
-            "from": self.current_user["first_name"],
+            "from": self.get_argument("from"),
             "body": self.get_argument("body"),
         }
         # # to_basestring is necessary for Python 3's json encoder,
@@ -99,7 +100,7 @@ class MessageNewHandler(BaseHandler):
 
 
 class MessageUpdatesHandler(BaseHandler):
-    @tornado.web.authenticated
+    
     @tornado.web.asynchronous
     def post(self):
         cursor = self.get_argument("cursor", None)
