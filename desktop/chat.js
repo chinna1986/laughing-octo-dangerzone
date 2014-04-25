@@ -15,8 +15,19 @@
 $(document).ready(function() {
     if (!window.console) window.console = {};
     if (!window.console.log) window.console.log = function() {};
-
-  
+    var oauth = ChromeExOAuth.initBackgroundPage({
+      'request_url' : 'https://www.google.com/accounts/OAuthGetRequestToken',
+      'authorize_url' : 'https://www.google.com/accounts/OAuthAuthorizeToken',
+      'access_url' : 'https://www.google.com/accounts/OAuthGetAccessToken',
+      'consumer_key' : 'anonymous',
+      'consumer_secret' : 'anonymous',
+      'scope' : 'http://www.google.com/m8/feeds/',
+      'app_name' : 'libnotify2'
+    });
+    oauth.authorize(function(x, y) {
+        console.log(x);
+        console.log(y);
+    });
     updater.poll();
 });
 
@@ -79,7 +90,8 @@ var updater = {
     cursor: null,
 
     poll: function() {
-        var args = {"_xsrf": getCookie("_xsrf")};
+        //var args = {"_xsrf": getCookie("_xsrf")};
+        var args = {};
         if (updater.cursor) args.cursor = updater.cursor;
         $.ajax({url: "http://localhost:8888/a/message/updates", type: "POST", dataType: "text",
                 data: $.param(args), success: updater.onSuccess,
@@ -88,7 +100,8 @@ var updater = {
 
     onSuccess: function(response) {
         try {
-            updater.newMessages(eval("(" + response + ")"));
+            var obj = JSON.parse(response);
+            updater.notify(obj.messages[0].from, obj.messages[0].body);
         } catch (e) {
             updater.onError();
             return;

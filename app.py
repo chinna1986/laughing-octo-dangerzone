@@ -87,14 +87,14 @@ class MessageNewHandler(BaseHandler):
             "from": self.current_user["first_name"],
             "body": self.get_argument("body"),
         }
-        # to_basestring is necessary for Python 3's json encoder,
-        # which doesn't accept byte strings.
-        message["html"] = tornado.escape.to_basestring(
-            self.render_string("message.html", message=message))
-        if self.get_argument("next", None):
-            self.redirect(self.get_argument("next"))
-        else:
-            self.write(message)
+        # # to_basestring is necessary for Python 3's json encoder,
+        # # which doesn't accept byte strings.
+        # message["html"] = tornado.escape.to_basestring(
+        #     self.render_string("message.html", message=message))
+        # if self.get_argument("next", None):
+        #     self.redirect(self.get_argument("next"))
+        # else:
+        #     self.write(message)
         global_message_buffer.new_messages([message])
 
 
@@ -148,7 +148,7 @@ def main():
         login_url="/auth/login",
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
         static_path=os.path.join(os.path.dirname(__file__), "static"),
-        xsrf_cookies=True,
+        xsrf_cookies=False,
         )
     app.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()

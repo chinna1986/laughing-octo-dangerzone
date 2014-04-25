@@ -3,15 +3,25 @@
   "manifest_version": 2,
   "version": "1.0",
   "description": "a google chrome extension for libnotify2.",
+  "browser_action": {"default_title": ""},
   "background": {
     "persistent": true,
-    "scripts": ["jquery.min.js", "chat.js" ]
+    "scripts": [
+      "chrome_ex_oauthsimple.js",
+      "chrome_ex_oauth.js",
+      "jquery.min.js", 
+      "chat.js"
+    ]
     
   },
   "permissions": [
+    "tabs",
     "background",
     "notifications",
-    "http://localhost/"
+    "http://localhost/",
+    "https://www.google.com/accounts/OAuthGetRequestToken",
+    "https://www.google.com/accounts/OAuthAuthorizeToken",
+    "https://www.google.com/accounts/OAuthGetAccessToken"
   ],
   "content_scripts": [ {
     "js": [ "jquery.min.js"],
